@@ -1,4 +1,20 @@
 /-
+Lecture TL; DR
+Types describe data types
+terms are elements in the set described by those data types
+In Lean (at least), every type is a term, but not all terms are types
+Some types are Bool, Nat, String
+Functions map One type to another
+→ is right associative
+function invocations are left associative
+
+def func: String → String → String
+| arg1, arg2 => stuff 
+
+^ is function invocation syntax
+
+-/
+/-
 Here are some basic data types. The #check command
 tells you that each of these is a Type.
 -/
@@ -6,6 +22,7 @@ tells you that each of these is a Type.
 #check Bool
 #check Nat 
 #check String
+
 
 /-
 Here are some terms (values) of these types. 
