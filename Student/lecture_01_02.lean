@@ -524,5 +524,5 @@ Self test: Which mathematical function captures this, most
 plausible, interpretation of the snack policy that the Dad 
 was communicating to his daughter? (You can have either one
 or neither but not both)?
-NOR
+NAND
 -/
