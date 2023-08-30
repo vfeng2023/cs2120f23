@@ -548,5 +548,5 @@ def id_bool' (b: Bool) : Bool := (b)
 
 def id_string (str: String) :String := str
 
-/-def polymorphic_id (T: Type): T→ T
-| T,v => v-/
+def polymorphic_id (T: Type): T→ T
+| v => v
