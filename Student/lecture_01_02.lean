@@ -259,7 +259,9 @@ above is a function that takes and returns a string,
 so f1 can be used as a valid first argument to crazy.
 -/
 
-def crazy (f : String → String) (a : String) : String := (f a) 
+def crazy (f : String → String) (a : String) : String := (f a) --application term
+--to evaluate a function, the values of the arguments are subsituted into the body, and evaluated until a result is term
+--function application = substituting in values into the body and evalutating until you get a result
 #eval crazy f1 s1 --Hello, Hello
 #check (crazy) --(String → String) → String → String
 
@@ -281,9 +283,12 @@ clearer in this notation.
 -/
 
 def crazy2 : (String → String) → String → String 
-| f, a => (f a)
-
-/-
+| f, a => (f a) --list of names and a term that can use names on the right
+--pattern matching
+--when crazy2 is applied to 2 args, first arg is bound to f, second is bound to a, resulting value is given by (f a)
+--f,a could also have different names
+/--/
+/--/
 On the first line we state the type of the crazy function
 (here called crazy2). On the second line we bind names to
 the arguments of the function to the left of the =>, and to
@@ -366,17 +371,19 @@ for the other three cases of possible input pairs.
 -/
 
 def xor : Bool -> Bool -> Bool
-| true, true => false
+| true, true => false --pattern matching to determine case (~~ if elif else to match) (if unbound, then would match any)
 | true, false => true
 | false, true => true
 | false, false => false
+/- if true, true were troo, falsse (not literal), then it would be unbound and immediately return false-/
+/-If only one arg is passed, then another function is returned (Bool → Bool)-/
 
 /-NOTE: need to list all possible cases-/
 
 #eval xor true true     -- false
 #eval xor true false    -- true
 #eval xor false true    -- true
-#eval xor false false   -- true
+#eval xor false false   -- false
 
 /-
 The nand function, short for "not and" gives exactly the
@@ -526,3 +533,20 @@ was communicating to his daughter? (You can have either one
 or neither but not both)?
 NAND
 -/
+
+--java, Python, C are imperative langs -- there is a sequence of commands
+-- in a functional language, a function is a single expression
+def id_nat:Nat→ Nat
+| n => n
+
+
+def id_bool: Bool → Bool
+| true => true
+| false => false
+
+def id_bool' (b: Bool) : Bool := (b)
+
+def id_string (str: String) :String := str
+
+/-def polymorphic_id (T: Type): T→ T
+| T,v => v-/
