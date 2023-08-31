@@ -14,8 +14,7 @@ Replace the blank with your answer here: Type
 
 Remember you can use Lean to #check your answer!
 -/
-
---#check Bool
+#check Bool
 
 /-! Question #2:
 
