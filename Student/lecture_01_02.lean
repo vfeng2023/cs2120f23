@@ -470,6 +470,7 @@ Which of the preceding results?
 def mystery : Bool -> Bool -> Bool
 | b1, b2 => and (not b1) (not b2)
 
+#check (mystery)
 /-!
 ## Pattern matching
 
