@@ -382,3 +382,18 @@ def apply2' {α : Type} : (α → α ) → α → α
 #eval apply2' double 1     -- expect 4
 #eval apply2' square 2     -- expect 16
 #eval apply2' exclaim "Hello" -- Hello!!
+
+/-!
+Yay! This example is an important achievement. 
+It exhibits the following fundamental concepts:
+- types and values; every value has a type
+- types are values too; their type is Type
+- types parameters make definitions polymorphic
+- types can be inferred and can remain implicit
+- functions are values, too, and can be arguments
+
+With all the work required to get to this point
+now in hand, we're ready to introduce a new and
+important concept in mathematics. It will be the
+subject of your first homework assignment. 
+-/

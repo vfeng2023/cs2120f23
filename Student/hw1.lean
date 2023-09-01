@@ -198,9 +198,11 @@ of the type arguments are implicit and inferred.
 -/
 
 -- Implement glue_funs here
-def glue_funs 
-| _ => _
+-- def glue_funs (α: Type)→ (β : Type)→ (γ : Type)→   (β  → γ ) → (α  → β )→ γ → β  
+-- |α ,β ,γ , g, f, arg => g (f arg)
 
+def glue_funs {α β γ:Type} : (β → γ ) → (α → β ) → α → γ
+| g, f, x => g (f x)
 -- test cases
 #eval glue_funs isEven String.length "Hello"  -- false
 #eval glue_funs isEven String.length "Hello!" -- true
@@ -219,8 +221,11 @@ as applying square after double?
 -/
 
 -- Copy the double and square functions here
+def double(x: Nat): Nat := x*2
+
+def square(n: Nat): Nat := n*n
 
 -- Write your tests here; include expected results
 
-#eval _
-#eval _
+#eval glue_funs double square 5 -- 50
+#eval glue_funs square double 5 -- 100
