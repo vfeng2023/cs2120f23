@@ -397,3 +397,6 @@ now in hand, we're ready to introduce a new and
 important concept in mathematics. It will be the
 subject of your first homework assignment. 
 -/
+
+def afunc (a: Nat) (b: Nat): Nat
+:= (a+b)
