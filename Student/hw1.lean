@@ -229,3 +229,19 @@ def square(n: Nat): Nat := n*n
 
 #eval glue_funs double square 5 -- 50
 #eval glue_funs square double 5 -- 100
+
+--testing implicit function calls
+
+def glue_funs'' {α:Type} {β :Type} {γ :Type} : (β → γ ) → (α → β ) → α → γ
+| g, f, x => g (f x)
+
+#eval glue_funs double square 5 -- 50
+#eval glue_funs square double 5 -- 100
+
+def glue_funs''': {α:Type}→ {β :Type}→ {γ :Type} →  (β → γ ) → (α → β ) → α → γ
+| _,_,_,g, f, x => g (f x)
+
+#eval glue_funs''' double square 5 -- 50
+#eval glue_funs''' square double 5 -- 100
+
+#check (glue_funs'')
