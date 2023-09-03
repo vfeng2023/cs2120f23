@@ -378,7 +378,7 @@ following test cases should work.
 def apply2' {α : Type} : (α → α ) → α → α 
 | f, a => f (f a)
 -- same tests again
-#eval apply2' Nat.succ 0   -- expect 2
+#eval @apply2' Nat Nat.succ 0   -- expect 2
 #eval apply2' double 1     -- expect 4
 #eval apply2' square 2     -- expect 16
 #eval apply2' exclaim "Hello" -- Hello!!
