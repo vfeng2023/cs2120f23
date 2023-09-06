@@ -212,9 +212,10 @@ that of anonymous function expressions.
 def compose {α β γ : Type} :
   (β → γ) → 
   (α → β) → 
-  (α → γ)       
+   α → γ       
 | g, f => (fun a => g (f a)) 
 
+#eval compose is_even String.length "Hello"
 
 /-!
 Note that we've again written the type of compose
@@ -262,6 +263,8 @@ def is_even_len'' := (is_even ∘ String.length)
 #eval is_even_len'' "Hello Higher Mathematics!" -- false
 
 
+def compose'' {α β γ : Type} (g : β → γ) (f : α → β): α → γ  := λ a => g (f a)
+
 /-!
 ## Welcome to Higher Mathematics
 
@@ -290,7 +293,7 @@ This definition gives names to all of the arguments
 Lean infers; and uses λ instead of fun (for the "fun" of it)
 to write the function that this compose function is to return.
 -/
-
+def iseven(n: Nat):= n%2==0
 /-!
 ## Extra, extra!
 Did you know that Java and Python support lambda expressions?
