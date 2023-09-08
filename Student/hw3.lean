@@ -19,6 +19,8 @@ a result.
 -/
 
 -- Answer below
+def funkom {α β γ : Type}: (β → γ) → (α → β) → (α → γ)
+| f, g => (fun a => f (g a))
 
 
 /-! 
@@ -29,7 +31,8 @@ Define a function of the following polymorphic type:
 -/
 
 -- Answer below
-
+def mkop {α β :Type}: (a: α ) → (b: β ) → Prod α β 
+| a,b => (a,b)
 
 
 /-! 
@@ -40,7 +43,7 @@ Define a function of the following polymorphic type:
 -/
 
 -- Answer below
-
+def op_left{α β :Type} → 
 
 
 
