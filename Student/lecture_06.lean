@@ -283,8 +283,9 @@ as needed to see that the results are as expected.
 #eval get boxed_bool    -- expect true
 #eval get boxed_string  -- expect "Hello!"
 
-def Prod' {α: Type} {β :Type}: Type
-| pair (a:α ) (b: β )
+inductive Prod' {α: Type} {β :Type} : Type
+| pair (a:α) (b: β )
+
 /-!
 ## The (Polymorphic) Product Type
 
