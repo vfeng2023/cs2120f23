@@ -86,10 +86,15 @@ namespace RPS
 
 -- Here's the definition of our RPS object type
 inductive Object : Type
-| rock
+| rock --constructors, are constants
 | paper
 | scissors
 
+--open Object
+#check rock
+#check Object.rock
+
+#check Object
 /-!
 Let's look at the elements of this definition:
 - The inductive keyword indicates that we're going to define the set of objects of a new type by giving rules for how those objects can be constructed. 
@@ -146,6 +151,7 @@ def play : Object → Object → Result
 | rock, paper => loses
 | rock, rock => ties
 
+#reduce play scissors rock -- LEAN cannot print out value, use reduce
 end RPS
 
 /-!
@@ -180,6 +186,13 @@ Here's a definition that will work for us.
 inductive Box (α : Type) : Type
 | put (a : α)
 
+#check Box Nat --polymorphic type
+
+def box_containing_zero : Box Nat := Box.put 0
+def box_containing_hello: Box String := Box.put "Hello"
+def box_containing_hello' := Box.put "Hello"
+#check (Box)
+#check (@Box.put) --STUDY This REsult --takes type argument, then value, then returns object
 /-!
 Let's explain it.
 - *inductive* is a keyword as explained above
@@ -270,6 +283,8 @@ as needed to see that the results are as expected.
 #eval get boxed_bool    -- expect true
 #eval get boxed_string  -- expect "Hello!"
 
+def Prod' {α: Type} {β :Type}: Type
+| pair (a:α ) (b: β )
 /-!
 ## The (Polymorphic) Product Type
 
