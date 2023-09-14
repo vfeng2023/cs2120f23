@@ -58,7 +58,11 @@ Define a function of the following polymorphic type:
 -- Answer below
 def op_right{ α β :Type} : (α × β ) → β 
 | (_,b) => b
-
+/-
+OR
+def op_right: {α β :Type} → α × β → β
+| _,_,p => match p with | (_, b) => b
+-/
 
 /-! #5
 ## Problem #5
