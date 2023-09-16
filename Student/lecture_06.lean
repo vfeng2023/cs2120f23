@@ -91,7 +91,7 @@ inductive Object : Type
 | scissors
 
 --open Object
-#check rock
+#check Object.rock
 #check Object.rock
 
 #check Object

@@ -288,6 +288,8 @@ a function that looks like it can return a result
 of any possible type. As an in-class exercise, write
 it! 
 -/
+def anyfunc : {α :Type} → Empty → α
+| _, e => nomatch e
 
 /-!
 Indeed, there's nothing special about Nat or Empty
