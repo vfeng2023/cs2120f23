@@ -1,3 +1,20 @@
+/-
+TLDR:
+Unit type is the void type
+inductive Unit: Type
+| unit
+Empty type is uninstantiable 
+inductive Empty: Type
+(use nomatch if writing a function)
+Mischellaneous :
+match s with 
+| pattern
+| pattern2 
+| etc
+
+
+-/
+
 /-!
 # The Unit and Empty Types
 
@@ -279,7 +296,7 @@ it gets on as an argment.
 def empty2empty : Empty → Empty 
 | e => nomatch e
 
-def x' := (empty2empty _) -- we can never call it 
+def x' := (empty2empty) -- we can never call it 
 
 /-!
 Indeed, given *any* type whatsoever, call it α, we 
@@ -288,6 +305,7 @@ a function that looks like it can return a result
 of any possible type. As an in-class exercise, write
 it! 
 -/
+
 def anyfunc : {α :Type} → Empty → α
 | _, e => nomatch e
 

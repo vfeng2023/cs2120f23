@@ -1,3 +1,13 @@
+/-
+TLDR:
+inductive Sum (α β :Type):Type
+| inl (a: α )
+| inr (b: β )
+
+Sum types hold either type α or type β 
+Declaring them requires an explicit type declaration because lean cannot infer the other
+Should have a function to convert from either to get a result as a destructor
+-/
 /-!
 # Data Types: Sum, Unit, and Empty Types
 

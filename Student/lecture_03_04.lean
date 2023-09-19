@@ -1,3 +1,14 @@
+/-
+TLDR
+Functions can take types as arguments, the type arguments make a function polymorphic
+Use {} to make type arguments implicit
+Function composition written as such
+g ∘ f = g composed with f = g(f(a))
+A polymorphic type definition: {α β γ :Type} → (β → γ ) → (α → γ ) → α → γ 
+def func:  {α β γ :Type} → (β  → γ   ) → (α → β  ) → α → γ 
+| _,_,_,g,f, a => g (f a)
+-/
+
 /-!
 Note: These notes are not yet complete. They
 current extend the material presented at the

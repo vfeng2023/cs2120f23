@@ -1,3 +1,14 @@
+/-
+TLDR:
+Function composition written as such
+g ∘ f = g composed with f = g(f(a))
+A polymorphic type definition: {α β γ :Type} → (β → γ ) → (α → γ ) → α → γ 
+def func:  {α β γ :Type} → (β  → γ   ) → (α → β  ) → α → γ 
+| _,_,_,g,f, a => g (f a)
+
+lambda functions are anonymous functions that can be returned
+denoted with λ or fun
+-/
 /-!
 # Function Composition
 

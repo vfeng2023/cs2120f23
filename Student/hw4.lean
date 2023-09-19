@@ -1,3 +1,20 @@
+/-
+TLDR:
+Commutativity of sum and product:
+α × β ↔ β × α 
+α ⊕β ↔ β ⊕ α 
+
+Associativity of sum and product:
+(a × β ) × γ ↔ α × (β × γ )
+(a ⊕ β ) ⊕ γ ↔ α ⊕ (β ⊕ γ )
+
+Distributivity of product over sum
+α × (β ⊕ γ ) ↔ (α × β ) ⊕ (α ×  γ )
+
+Elimination of sum :
+α ⊕ β → (α → γ ) → (β  → γ ) → γ 
+
+-/
 /-!
 # Homework #4
 
@@ -71,8 +88,8 @@ Suppose you have *bread and (cheese and jam)*.
 Can you have *(bread and cheese) and jam* (just 
 grouping the *ands* differently)? Let's again turn 
 this into an abstract, general, and formal question,
-using *α, β,* and *γ* as names instead, of *bread,
-cheese,* and *jam*.
+using *α, β,* and *γ* as names instead, of *bread, cheese,* 
+and *jam*.
 
 Suppose α, β, and γ are arbitrary types. If you're 
 given an arbitrary *value* of type α × (β × γ), can
@@ -132,14 +149,14 @@ of definition.
 -/
 
 def sum_comm { α β : Type} : α ⊕ β → β ⊕ α :=
-fun s => 
+λ s => 
   match s with
-  | Sum.inl a => Sum.inr a
-  | Sum.inr b => Sum.inl b
+  | Sum.inl a => @Sum.inr β α a
+  | Sum.inr b => @Sum.inl β α  b
 
 /-!
-Can you always convert a term of type *β ⊗ α* into 
-one of type *α × β*? Prove it by writing a function 
+Can you always convert a term of type *β ⊕ α* into 
+one of type *α ⊕ β*? Prove it by writing a function 
 that does it. Call is sum_comm_reverse.
 -/
 
@@ -186,7 +203,7 @@ with a function that takes a term of the second sum type
 (in the preceding example) as an argument and that returns
 a value of the first sum type as a result.
 -/
-
+#check Nat ⊕ (Nat ⊕ Nat)
 -- Here:
 def sum_assoc_reverse {α β γ :Type}: (α ⊕ β) ⊕ γ → α ⊕ (β ⊕ γ)
 | Sum.inl (Sum.inl a) => Sum.inl a
@@ -207,7 +224,7 @@ either an *α* value and a *β* value, or an *α* value and
 a *γ* value. 
  -/
 
- def prod_dist_sum {α β γ : Type} : α × (β ⊕ γ) → (α × β) ⊕ (α × γ)
+ def wowser {α β γ : Type} : α × (β ⊕ γ) → (α × β) ⊕ (α × γ)
  | (a,s) => match s with 
               |Sum.inl b => Sum.inl (a,b)
               |Sum.inr c => Sum.inr (a,c)
@@ -247,11 +264,11 @@ type *wet*.
 -/
 
 -- Here
-inductive rain:Type
-inductive wet:Type
-inductive sprinkler: Type
+-- inductive rain:Type
+-- inductive wet:Type
+-- inductive sprinkler: Type
 
-def its_wet: (rain ⊕ sprinkler) → (rain → wet) → (sprinkler→ wet) → wet
+def its_wet{rain sprinkler wet: Type}: (rain ⊕ sprinkler) → (rain → wet) → (sprinkler→ wet) → wet
 | Sum.inl r, rtow, _ => rtow r
 | Sum.inr s, _, stow => stow s
 /-!
@@ -260,12 +277,11 @@ Now rewrite your function using the type names,
 *wet*. Call it *sum_elim*. 
 -/
 
+
+-- Here:
 def sum_elim {α β γ :Type}: (α ⊕ β ) → (α → γ ) → (β → γ ) → γ 
 | Sum.inl a, a2g, _ => a2g a
 | Sum.inr b, _, b2g => b2g b
-
-
--- Here:
 
 /-!
 You should now better understand how to program 

@@ -1,3 +1,23 @@
+/-
+TLDR
+- enumerate data types have a small number of constant values
+Created in the following manner:
+inductive TypeName: Type
+| constr1 
+| constr2
+| constr3
+
+- product type: hold a pair of two different types (think tuple)
+inductive Prod {α β: Type}: Type
+|mk (a: α ) (b: β )
+
+Use destructors to access them
+destructors get stuff using pattern matching
+Ex:
+def fst {α β :Type} : (Prod α β ) → α 
+| Prod.mk a _ => a
+-/
+
 /-!
 # Data Types
 
@@ -390,7 +410,7 @@ Challenge: What is the type of Prod? Think hard
 about it before answering? Hint: It's not Type.
 -/
 
-#check (@Prod)
+#check (@Prod) -- (α β :Type) → Type
 
 /-!
 That right. Prod is essentially a function that
