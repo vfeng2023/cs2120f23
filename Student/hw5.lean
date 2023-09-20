@@ -58,11 +58,13 @@ that there can be no jam AND cheese.
 
 def noval{α :Type} (a: α ): Empty --function with return type α → Empty, used to return this returntype
 
+def no (α : Type) := α → Empty
+
 def not_either_not_both { jam cheese:Type} :
-  ((jam → Empty) ⊕ (cheese → Empty)) → 
-  (jam × cheese → Empty) 
-| Sum.inl nojam => (fun e => noval e)
-| Sum.inr nocheese => (fun e => noval e)
+  ((no jam) ⊕ (no cheese)) → 
+  (no (jam × cheese)) 
+| Sum.inl nojam => (fun (j,c) => nojam j)
+| Sum.inr nocheese => (fun (_, c) => nocheese c)
 
 /-!
 ### #2: Not One or Not the Other Implies Not Both
@@ -76,8 +78,8 @@ names, *jam* and *cheese*.
 -/
 
 def demorgan1  {α β : Type} : ((α → Empty) ⊕ (β → Empty)) → (α × β → Empty)  
-| (Sum.inl noa) => (fun e => noval e)
-| (Sum.inr nob) => (fun e => noval e)
+| (Sum.inl noa) => (fun (a,_) => noa a)
+| (Sum.inr nob) => (fun (_,b) => nob b)
 
 /-!
 ### #3: Not Either Implies Not One And Not The Other
@@ -91,7 +93,7 @@ given *any* types, α and β,
 -/
 
 def demorgan2 {α β : Type} : (α ⊕ β → Empty) → ((α → Empty) × (β → Empty))
-| noaorb => (fun a=> noval a, fun b => noval b)
+| noaorb => (fun a => noaorb (Sum.inl a), fun b => noaorb (Sum.inr b))
 
 
 /-!
@@ -104,7 +106,10 @@ Hint: You might want to use an explicit match expression
 in writing your solution.
 -/
 def demorgan3 {α β : Type} : ((α → Empty) × (β → Empty)) → ((α ⊕ β) → Empty)  
-| notaornotb => fun e => noval e
+| (noa, nob) => 
+fun s=> match s with
+| Sum.inl a => noa a
+| Sum.inr b => nob b
 
 /-!
 ## PART 2
