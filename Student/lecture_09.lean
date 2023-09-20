@@ -196,7 +196,7 @@ you will be able to implement such a function?
 -- You answer here with a brief explanation
 /-
 Implies alpha is the empty type, because if alpha were inhabited (true),
-then the implication α → Empty must be false.
+then the implication α → Empty must be false (and thus cannot be instantiated).
 -/
 
 /-!
@@ -225,5 +225,4 @@ def noe2s : String ⊕ Empty → Nat
 --Nat → Empty Uninabited, because the implication is False
 --Uninhabited, because implication is False (unless alpha is Empty)
 def imposs {α :Type}: α → Empty
-| Empty 
 end cs2120
