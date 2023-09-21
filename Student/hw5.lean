@@ -16,7 +16,8 @@ questions on this homework, giving you an opportunity
 to deepen your understanding of the Empty type and its
 uses. 
 -/
-
+inductive Foo :Type
+def f2e (f: Foo) : Empty := nomatch f
 /-!
 
 ## PART 1
@@ -55,10 +56,10 @@ no jam (there are no values of this type), or a proof
 that there is no cheese, and shows *in either case*
 that there can be no jam AND cheese. 
 -/
-
-def noval{α :Type} (a: α ): Empty --function with return type α → Empty, used to return this returntype
+def noval{α :Type} (a: α ):= Empty --function with return type α → Empty, used to return this returntype
 
 def no (α : Type) := α → Empty
+--#check noval
 
 def not_either_not_both { jam cheese:Type} :
   ((no jam) ⊕ (no cheese)) → 

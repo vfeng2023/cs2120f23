@@ -224,5 +224,5 @@ def noe2s : String ⊕ Empty → Nat
 
 --Nat → Empty Uninabited, because the implication is False
 --Uninhabited, because implication is False (unless alpha is Empty)
-def imposs {α :Type}: α → Empty
+def imposs (α :Type):= α → Empty
 end cs2120
