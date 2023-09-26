@@ -126,10 +126,11 @@ smaller ones. Here are the rules.
 
 That's it! Here then are some valid expressions in
 propositional logic:
-- {a}           -- it's raining
-- {b}           -- the ground is wet
-- ¬a            -- it's not raining
-- a ⇒ b         -- if it's raining then the ground is wet
+--Now assume a and b are any expressions:
+- a           -- it's raining
+- b          -- the ground is wet
+- ¬a           -- it's not raining
+- a ⇒ b        -- if it's raining then the ground is wet
 - a ∨ b         -- it's raining or the ground is wet
 - (a ∧ b) ∨ ¬a  -- (raining and wet) or (not raining) 
 
