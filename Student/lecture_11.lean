@@ -352,7 +352,10 @@ inductive Expr : Type
 | bin_exp (op : binary_op) (e1 e2 : Expr)
 
 open Expr
-
+/-
+Build expression a ^ b
+Expr.bin_exp binary_op.add a b
+-/
 -- Examples
 def s0 := var_exp v₀
 def s1 := var_exp v₁
@@ -392,11 +395,12 @@ that * applies before +, for example.
 -/
 
 notation "{"v"}" => var_exp v
-prefix:max "¬" => un_exp unary_op.not 
+prefix:max "¬" => un_exp unary_op.not --:max binding strength, aka highest precedence
 infixr:35 " ∧ " => bin_exp binary_op.and  
 infixr:30 " ∨ " => bin_exp binary_op.or 
 infixr:25 " ⇒ " =>  bin_exp binary_op.imp
 infixr:20 " ⇔ " => bin_exp binary_op.iff 
+--r means right associative
 
 --  Now we have a "concrete" syntax for our language!
 def e0 := {v₀}
@@ -429,6 +433,13 @@ variables. Just assign them a default value, such as
 *false*.
 -/
 
+def id'{α :Type} : α → α 
+| a => a
+#eval v₀.n
+def i₂: Interp
+| var.mk 0 => true
+| var.mk 1 => false
+| _ => false
 /-!
 #### Operators
 
