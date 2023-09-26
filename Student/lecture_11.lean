@@ -170,7 +170,7 @@ First, we will assigning a true or false the meaning to
 each atomic propositional variable in an expression by way
 of a valation. For example, if we only care about one such
 variable, say *a*, then there are two possible valuations:
-- { a ↦ true }
+- { a ↦ true } --expression a evaluates to true
 - { a ↦ false }
 
 If two variables, *a* and *b* might appear in expressions,
@@ -298,7 +298,7 @@ a single constructor, you can use the
 the arguments as *fields*. 
 -/
 structure var : Type := 
-(n: Nat)
+(n: Nat) --(s: String)
 
 /-!
 The default constructor name for a 
