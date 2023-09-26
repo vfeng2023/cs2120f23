@@ -224,16 +224,16 @@ result *in each case*.
 -- Here
 def nat_le: Nat → Nat → Bool
 | 0, 0 => true
-| 0, Nat.succ n => true
-| Nat.succ n, 0 => false
+| 0, Nat.succ n' => true
+| Nat.succ n', 0 => false
 | Nat.succ n', Nat.succ m' => nat_le n' m'
 
 #check nat_le
-#eval nat_le 3 5
-#eval nat_le 4 5
-#eval nat_le 5 2
-#eval nat_le 1 1
-#eval nat_le 100 3
+#eval nat_le 3 5 --true
+#eval nat_le 4 5 --true
+#eval nat_le 5 2 --false
+#eval nat_le 1 1 --true
+#eval nat_le 100 3 --false
 
 
 /-!
@@ -273,12 +273,12 @@ def mul : Nat → Nat → Nat
 | m, (Nat.succ n') => add (m) (mul m n')
 
 #check mul
-#eval mul 2 3
-#eval mul 1 2
-#eval mul 0 1
-#eval mul 2 5
-#eval mul 5 6
-#eval mul 6 5
+#eval mul 2 3 --6
+#eval mul 1 2 --2
+#eval mul 0 1 --0
+#eval mul 2 5 --10
+#eval mul 5 6 --30
+#eval mul 6 5 --30
 --obs : crashes for larger values like mul 100 1
 
 /-!
@@ -298,16 +298,17 @@ to and including n.
 
 def sum_f : (Nat → Nat) → Nat → Nat 
 | f, 0 => f 0
-| f, n' + 1 => add (f (Nat.succ n')) (sum_f f n')
+| f, n' + 1 => Nat.add (f (Nat.succ n')) (sum_f f n') --obs: add and Nat.add are equivalent, but "add" crashes for larger values of n
 
-#check sum_f
+#check (sum_f)
 def sqr: Nat → Nat
 | n => n*n
 
-#eval sum_f sqr 3 --14 = 1^2 + 2^2 + 3^2
+#reduce sum_f sqr 3 --14 = 1^2 + 2^2 + 3^2
 
-#eval sum_f sqr 5 -- 55 = 1^2 + 2^2 + 3^2 + 4^2 + 5^2
+#reduce sum_f sqr 5 -- 55 = 1^2 + 2^2 + 3^2 + 4^2 + 5^2
 
-#eval sum_f sqr 0 -- 0
+#reduce sum_f sqr 0 -- 0
+#reduce sum_f sqr 100 --seems legit, 338350
 
 
