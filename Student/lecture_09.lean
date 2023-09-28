@@ -231,5 +231,10 @@ def noe2s : String ⊕ Empty → Nat
 
 --Nat → Empty Uninabited, because the implication is False
 --Uninhabited, because implication is False (unless alpha is Empty)
+--PROOF show that α x (α → Empty) implies Empty
+def imposs' {α :Type} : α × (α → Empty) → Empty
+| (a, noa) => noa a
+
+
 def imposs (α :Type):= α → Empty
 end cs2120
