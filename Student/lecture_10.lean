@@ -1,3 +1,18 @@
+/-
+TLDR
+inductive OBJ:Type
+| base
+| nested (base: OBJ)
+
+inductive types can be defined in terms of themselves
+unneested in functons like this: nested n'
+Nat is an inductive type that has the following declaration
+inductive Nat: Type
+| zero
+| succ (n': Nat)
+- use zero and nonrecursive constructor as base case in functions 
+- lean demands structural recursion
+-/
 /-! 
 INCOMPLETE AND UNDER CONSTRUCTION
 
@@ -142,7 +157,7 @@ We can easily check to see that it seems to works.
 #eval depth d0
 #eval depth d1
 #eval depth d2
-#ev al depth d3
+#eval depth d3
 
 /-!
 Now, it is worthwhile to convince yourself that the

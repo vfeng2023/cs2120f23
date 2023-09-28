@@ -1,3 +1,10 @@
+/-
+TLDR - Empty type is uninhibited, which is logically false
+Empty → α is inhavited, because false => true is true
+on the other hand, when an expression contains α => Empty, then this is uninhabited
+  -- if true, imples can get false from true, which is an impossibility. Thus, must be inhabited
+  
+-/
 /-!
 # Data Types: The Empty Type
 

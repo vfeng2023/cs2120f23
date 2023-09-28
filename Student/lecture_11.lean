@@ -1,3 +1,14 @@
+/--
+TLDR:
+- A variable is an atomic proposition (Is it true or not that p?)
+- Variables can be given a valuation, which then can be wrapped in an expression
+- It is possible to define syntax for defining expressions, operators, and interpretations to evaluate the function
+- def eval: Expr → Interp → Bool
+- Expr = a string of terms from the grammar
+- Interp = a valuation of variables
+- evaluation = combine Expr and Interp to obtain a boolean value
+
+-/
 /-
 # Propositional Logic
 
@@ -327,8 +338,8 @@ or dot notation.
 -/
 
 #eval var.n v₂  -- application notation
-open var        -- not a good idea 
-#eval n v₂      -- but it works 
+--open var        -- not a good idea 
+--#eval n v₂      -- but it works 
 #eval v₂.n      -- dot notation
 
 /-!
@@ -409,7 +420,7 @@ def e2 := e0 ∧ e1
 def e3 := e0 ∨ e1
 def e4 := (e2 ∧ e3) ∨ e0
 
-
+#reduce e4
 /-!
 ### Semantics
 -/
@@ -435,11 +446,15 @@ variables. Just assign them a default value, such as
 
 def id'{α :Type} : α → α 
 | a => a
+
+def a : var := v₀
+def b : var := v₁
+
 #eval v₀.n
-def i₂: Interp
-| var.mk 0 => true
-| var.mk 1 => false
+def i₂ : Interp := fun v => match v with
+| (var.mk 0) => true
 | _ => false
+
 /-!
 #### Operators
 

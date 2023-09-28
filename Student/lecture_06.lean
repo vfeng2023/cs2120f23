@@ -1,6 +1,6 @@
 /-
 TLDR
-- enumerate data types have a small number of constant values
+- enumerated data types have a small number of constant values
 Created in the following manner:
 inductive TypeName: Type
 | constr1 
