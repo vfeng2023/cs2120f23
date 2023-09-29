@@ -1,4 +1,4 @@
-/-!
+ /-!
 # Propositional Logic: Review and Practice
 -/
 
@@ -23,6 +23,7 @@ inductive unary_op : Type
 inductive binary_op : Type
 | and
 | or
+| imp
 
 inductive Expr : Type
 | var_exp (v : var)
@@ -47,9 +48,13 @@ Semantics
 def eval_un_op : unary_op → (Bool → Bool)
 | unary_op.not => not
 
+def implication: Bool → Bool → Bool
+| true, false => false
+| _, _ => true
 def eval_bin_op : binary_op → (Bool → Bool → Bool)
 | binary_op.and => and
 | binary_op.or => or
+| binary_op.imp => implication
 
 def Interp := var → Bool  
 
@@ -170,7 +175,7 @@ in propositional logic, as a proposition can *only*
 be true or false, and in either case one of the two
 sub-expressions will be true, so the overall one will
 be true as well. We call such a proposition *valid*.
-
+-- in between = may or may not be true = satifiable but not valid
 For numerous reasons, then, we'll usually use single
 letters to represent (natural language) propositions,
 and moreover, we'll often do so without referring to
@@ -188,13 +193,24 @@ First, define *b, c,* *j,* and *a* as propositional variables
 (of type *var*). We'll use *b* for *bread* or *beta*,* *c* for 
 *cheese,* *j* for *jam,* and *a* for α*. 
 -/
+def b: var := var.mk 0
+def c := var.mk 1
+def j := var.mk 2
+def a := var.mk 3
 
+--get index out of c structure
+#eval c.n
 -- Define B, C, J and A as corresponding atomic propositions (Expr) 
+def B := {b}
+def C := {c}
+def J := {j}
+def A := {a}
 
 -- Now redefine the function names in HW5 in propositional logic (Expr)
-
+--((α → Empty) ⊕ (β → Empty)) → (α × β → Empty)  
+def e0 := (¬J ∨ ¬C) ⇒ ¬(J ∧ C)
 -- Next go back and extend our formalism to support the implies connective
-
+#eval eval_expr e0 (λ (a:var)=> false)
 -- Now evaluate each of these expressions under the all_true and all_false interpretations
 
 -- Next define an interpretation other than these two and evaluate the propositions again
