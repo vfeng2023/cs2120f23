@@ -41,7 +41,7 @@ prefix:max "¬" => Expr.un_exp unary_op.not
 infixr:35 " ∧ " => Expr.bin_exp binary_op.and  
 infixr:30 " ∨ " => Expr.bin_exp binary_op.or 
 infixr:25 " ⇒ " =>  Expr.bin_exp binary_op.imp
-infixr:20 " ⇔ " => Expr.bin_exp binary_op.iff 
+infixr:20 "⇔" => Expr.bin_exp binary_op.iff 
 
 /-!
 ### Semantics

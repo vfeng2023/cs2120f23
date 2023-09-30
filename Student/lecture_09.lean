@@ -1,8 +1,15 @@
 /-
 TLDR - Empty type is uninhibited, which is logically false
-Empty → α is inhavited, because false => true is true
+Empty → α is inhabited, because false => true is true
 on the other hand, when an expression contains α => Empty, then this is uninhabited
   -- if true, imples can get false from true, which is an impossibility. Thus, must be inhabited
+Of particular importance in these questions is the
+idea that *having* a function value (implementation) 
+of type *α → Empty* proves that α is uninhabited, in
+that if there were a value (a : α) then you'd be able
+to derive a value of type Empty, and that simply can't
+be done, so there must be no such (a : α). That's the
+great idea that we reached at the end of lecture_09.
   
 -/
 /-!
