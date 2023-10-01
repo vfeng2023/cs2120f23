@@ -27,8 +27,8 @@ a result.
 -/
 
 -- Answer below
-
-
+def funkom: {α β γ :Type} → (β → γ ) → (α → β  ) → (α → γ )
+| _,_,_, g, f => (fun a => g (f a))
 /-! 
 ## Problem #2
 
@@ -37,9 +37,7 @@ Define a function of the following polymorphic type:
 -/
 
 -- Answer below
-
-
-
+def mkop {α β :Type} (a: α ) (b: β ) : α × β := Prod.mk a b
 /-! 
 ## Problem #3
 
@@ -48,7 +46,8 @@ Define a function of the following polymorphic type:
 -/
 
 -- Answer below
-
+def op_left {α β :Type}: α × β → α 
+| (a,_) => a
 
 
 
@@ -60,7 +59,8 @@ Define a function of the following polymorphic type:
 -/
 
 -- Answer below
-
+def op_right:{α β :Type} → α × β → β 
+| _,_,Prod.mk _ b => b
 
 
 /-! 
@@ -95,7 +95,37 @@ Include test cases using #reduce to show that the reward
 from each weekday is *money* and the reward from a weekend
 day is *health*.
 -/
+inductive day: Type
+|sunday
+|saturday
+|monday
+|tuesday
+|wednesday
+|thursday
+|friday
 
+inductive kind: Type
+|play
+|work
+
+open day
+open kind
+def day2kind: day → kind
+| sunday => play
+| saturday => play
+| _ => work
+
+inductive reward:Type
+| health
+| money
+
+open reward
+def kind2reward: kind→ reward
+| play => health
+| work => money
+
+#reduce funkom kind2reward day2kind sunday
+#reduce (kind2reward ∘ day2kind) sunday
 /-!
 ## Problem #6
 
@@ -111,7 +141,7 @@ Consider the outputs of the following #check commands.
 Is × left associative or right associative? Briefly explain
 how you reached your answer.
 
-Answer here: 
+Answer here: right associative
 
 ### B.
 Define a function, *triple*, of the following type:
@@ -119,7 +149,8 @@ Define a function, *triple*, of the following type:
 -/
 
 -- Here:
-
+def triple{ α β γ :Type}: α → β → γ → (α × β × γ )
+| a,b,g => Prod.mk a (Prod.mk  b g)
 /-!
 ### C.
 Define three functions, call them *first*, *second*, 
@@ -129,7 +160,12 @@ second, or third elements.
 -/
 
 -- Here:
-
+def first {α β γ :Type} : (α× β× γ) → α 
+| (a,_,_) => a
+def second {α β γ :Type} : (α× β× γ) → β 
+|(_,b,_) => b
+def third {α β γ :Type} : (α × β × γ ) → γ 
+| (_,_,c) => c
 /-!
 ### D.
 Write three test cases using #eval to show that when 
@@ -139,6 +175,11 @@ element of that triple.
 -/
 
 -- Here:
+def mytrip := ("Hello",4,true)
+
+#eval first mytrip
+#reduce second mytrip
+#reduce third mytrip
 
 /-!
 ### E.
@@ -148,5 +189,5 @@ is to write a term of that type.
 -/
 
 
-
+#check ((4, "hello"), true)
 

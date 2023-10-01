@@ -52,7 +52,7 @@ as an argument and returns the natural number that
 is length of the given string. What is the type of
 the String.length function?
 
-Answer here:
+Answer here: String → Nat
 -/
 
 
@@ -72,6 +72,9 @@ similar Boolean operators, such as *xor* and *nor*.
 -/
 
 -- Write your code here
+def implies: Bool → Bool → Bool
+| true, false => false
+| _, _ => true
 
 /-!
 ## Problem 3: Prove correctness by exhaustive testing
@@ -83,7 +86,10 @@ end of each #eval line, as we've done in class.
 -/
 
 -- Write your answers here:
-#eval _   -- etc
+#eval implies true true   -- etc
+#eval implies false true 
+#eval implies false false 
+#eval implies true false 
 
 /-!
 ## 4. Glue together two compatible functions
@@ -142,8 +148,8 @@ right, the following test cases should pass.
 -/
 
 -- Now complete the implementation of glue_funs'
-def glue_funs' : _
-| _ => _
+def glue_funs' : (Nat → Bool) → (String → Nat) → String → Bool
+| g, f, a=> g (f a)
 
 #eval glue_funs' isEven String.length "Hello"  -- false
 #eval glue_funs' isEven String.length "Hello!" -- true
@@ -188,8 +194,8 @@ of the type arguments are implicit and inferred.
 -/
 
 -- Implement glue_funs here
-def glue_funs : _
-| _ => _
+def glue_funs {α β γ :Type}: (β → γ ) → (α → β ) → α → γ 
+| f, g, a => f (g a)
 
 -- test cases
 #eval glue_funs isEven String.length "Hello"  -- false
@@ -209,8 +215,9 @@ as applying square after double?
 -/
 
 -- Copy the double and square functions here
-
+def double (n:Nat) : Nat := 2*n
+def square (n:Nat) : Nat := n*n
 -- Write your tests here; include expected results
 
-#eval _
-#eval _
+#eval glue_funs double square 2 --8
+#eval glue_funs square double 2 --16
