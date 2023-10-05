@@ -311,6 +311,22 @@ def i₃: var → Bool
 | var.mk 0 => false
 | var.mk 1 => true
 | _ => false
+
+--assign j and c values of true and false
+def i₂': var → Bool
+| var.mk 2 => true
+| var.mk 3 => false
+| _ => false
+
+--assign j, c false, and true
+def i₃': var → Bool
+| var.mk 2 => false
+| var.mk 3 => true
+| _ => false
+
+--check validity of e0
+#eval eval_expr e0 i₂'
+#eval eval_expr e0 i₃'
 --check validity of e1
 #eval eval_expr e1 i₂ --true
 #eval eval_expr e1 i₃ --true
