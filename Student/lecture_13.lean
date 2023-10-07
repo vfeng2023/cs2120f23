@@ -160,6 +160,7 @@ inductive binary_op : Type
 | and
 | or
 | imp
+| iff
 inductive Expr : Type
 | var_exp (v : var)
 | un_exp (op : unary_op) (e : Expr)
@@ -175,10 +176,20 @@ def eval_un_op : unary_op → (Bool → Bool)
 def implies : Bool → Bool → Bool
 | true, false => false
 | _, _ => true
+
+/-
+## Lifted from hw7_pt2
+-/
+def iff: Bool → Bool → Bool
+| true, true => true
+| false, false => true
+| _,_ => false
+
 def eval_bin_op : binary_op → (Bool → Bool → Bool)
 | binary_op.and => and
 | binary_op.or => or
 | binary_op.imp => implies
+| binary_op.iff => iff
 def Interp := var → Bool  
 def eval_expr : Expr → Interp → Bool 
 | (Expr.var_exp v),        i => i v
@@ -747,3 +758,10 @@ def xandnotx := x ∧ (¬ x)
 #eval is_unsat xandnotx --true
 
 
+def A:= {var.mk 0}
+def O:= {var.mk 1}
+def B:= {var.mk 2}
+def C := {var.mk 3}
+
+def hw7pt2expr:= (A ∨ O) ∧ (B ∨ C) ⇔  (A ∧ B) ∨ (A ∧ C) ∨ (O ∧ B) ∨ (O ∧ C)
+#eval is_valid hw7pt2expr --result is true
