@@ -1,3 +1,10 @@
+/-
+TLDR:
+- Writing a sat solver
+- convert row numbers to the corresponding binary valuations
+- interp function created by overriding an existing one (continuously), 
+- then supplied to previously defined evaluation function
+-/
 /-!
 
 # Propositional Logic: A Satisfiability Solver
@@ -290,7 +297,7 @@ that's 1*2^0 + 0*2^1 + 1*2^2 = 1 + 0 + 4 = 5.* The
 number is odd so the rightmost bit is *1*, which is 
 the remainder, 5 % 2 = 1*. Now recurse on *5* shifted
 right by one bit, i.e., on *5/2* using natural number 
-division. *5/2* is *2*, so the nexxt bit is *2 % 2 = 0.* 
+division. *5/2* is *2*, so the next bit is *2 % 2 = 0.* 
 Recursing on *2 / 2 = 1,* we find the next bit to be
 *1 % 2 = 1.* Finally recurse on *1 / 2 = 0*. Zero is
 one of the two base cases, so we're done. The result 

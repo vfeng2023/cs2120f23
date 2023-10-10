@@ -1,6 +1,18 @@
 /-!
 # Propositional Logic: Review and Practice
 -/
+/-
+Key takeaways:
+¬ = not
+∧ = and
+∨ = or
+⇒ = if  --implies
+⇔ = iff -- if and only if
+
+
+## Precedence:
+- Highest are listed first above
+-/
 
 /-!
 ## Specification of Propositional Logic
