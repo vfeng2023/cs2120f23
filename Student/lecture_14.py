@@ -54,3 +54,6 @@ solve(Implies(X, Y),
 print ("Simplify X and Y and X")
 print (simplify (And(X, Y, X)))
 
+      """X Y
+      
+      """
