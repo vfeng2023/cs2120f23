@@ -194,6 +194,7 @@ def make_bool_lists': Nat → List (List Bool)
 | n'+1 => let prev:= make_bool_lists' n'
           (List.map (λ L => true::L) prev) ++ (List.map (λ L=> false::L) prev)
 
+
 /-!
 #### Bool List to/from Interpretation Function 
 
@@ -308,8 +309,12 @@ Boolean values.
 -/ 
 
 -- The column of truth table outputs for e
+
 def truth_table_outputs : Expr → List Bool
-| e =>  eval_expr_over_interps e (mk_interps_vars (num_vars e))
+| e => List.map (eval_expr e) (mk_interps_vars (num_vars e))
+
+def truth_table_outputs' : Expr → List Bool
+| e => eval_expr_over_interps e (mk_interps_vars (num_vars e))
 where eval_expr_over_interps : Expr → List Interp → List Bool
 | _, [] => []
 | e, h::t => eval_expr_over_interps e t ++ [eval_expr e h]
@@ -445,7 +450,10 @@ def find_counterexamples_bool : Expr → List (List Bool)
 def X := {var.mk 0}
 def Y := {var.mk 1}
 def Z := {var.mk 2}
+#eval truth_table_outputs (X ∧ Y)
 
+#eval List.foldr or false (truth_table_outputs (X ∧ Y))
+#eval List.foldr and true (truth_table_outputs (X ∧ Y))
 /-!
 Is it true that if X being true makes Y true, then does X being 
 false make Y false?

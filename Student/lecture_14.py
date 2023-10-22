@@ -1,5 +1,17 @@
 from z3 import *
 
+X = Int("X")
+Y = Int ("Y")
+Z = Int("Z")
+s = Solver()
+
+s.add(3*X+2*Y-Z == 1, 2*X- 2*Y+4*Z == -2, X+Y+Z==222)
+print(s.check())
+print(s.model())
+
+x = Int("x")
+print(simplify(5*(2+x)+3*(5*x+4)-(x**2)**2))
+
 # Propositional Logic (Boolean) Variables
 # Python name, variable type, string name
 
@@ -54,6 +66,3 @@ solve(Implies(X, Y),
 print ("Simplify X and Y and X")
 print (simplify (And(X, Y, X)))
 
-      """X Y
-      
-      """
