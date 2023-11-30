@@ -1,7 +1,8 @@
 import Mathlib.Data.Set.Basic
+import Mathlib.Logic.Relation
+
 
 /-!
-
 # Set Theory
 
 A set is intuitively understood as a collection of objects.
@@ -471,15 +472,15 @@ But ah ha! That's not true. We can't construct a proof
 of it, and so we're stuck, with no way to finish our
 proof. Why? The proposition is false!
 
-Exercise: Prove that! 6 ∉ small_set. Here you have to
-recall that 6 ∉ small_set means ¬(6 ∉ small_set), and
-that in turn means that a proof (6 ∉ small_set) leads
+Exercise: Prove that 6 ∉ small_set. Here you have to
+recall that 6 ∉ small_set means ¬(6 ∈ small_set), and
+that in turn means that a proof (6 ∈ small_set) leads
 to a contradiction and so cannot exist. That is, that
-6 ∉ small_set → False.
+6 ∈ small_set → False.
 
 This is again a proof by negation. We'll assume that
 we have a proof of the hypothesis of the implication
-(h : 6 ∉ even_and_small_set), and from that we will
+(h : 6 ∈ even_and_small_set), and from that we will
 derive a proof of False (by case analysis on a proof
 of an impossibility using nomatch) and we'll be done.
 -/
@@ -585,3 +586,22 @@ example : 6 ∈ ev_set \ small_set := ⟨ rfl, λ h => nomatch h ⟩
 -/
 
 #reduce @Set.powerset
+
+variable (s t : Set Nat)
+#reduce s ∩ t
+#reduce sᶜ
+
+/-!
+## Summary of Set Theory and Logical Underpinnings
+
+| Set Theory  | Set Theory Definitions    | Predicate Logic                   |
+|-------------|---------------------------|-----------------------------------|
+| set α       | axioms of set theory      | predicate (α → Prop in Lean)      |
+| s ∩ t       | { a \| a ∈ s ∧ a ∈ t }     | λ a => s a ∧ t a                  |
+| s ∪ t       | { a \| a ∈ s ∨ a ∈ t }     | λ a => s a ∨ t a                  |
+| sᶜ          | { a \| a ∉ s }             | λ a => s a → False                |
+| s \ t       | { a \| a ∈ s ∧ a ∉ t }     | λ a => s a ∧ (t a → False)        |
+| s ⊆ t       | ∀ a, a ∈ s → a ∈ t  ...   | λ a => s a → t a ...              |
+| s ⊊ t       | ... ∧ ∃ w, w ∈ t ∧ w ∉ s  | ... ∧ ∃ w, (t w) ∧ (s w → False)  |
+| 𝒫 s         | { b : Set s \| b ⊆ univ }  | λ b => b ⊆ univ                   |
+-/
