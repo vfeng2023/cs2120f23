@@ -587,3 +587,29 @@ example : 6 ∈ ev_set \ small_set := ⟨ rfl, λ h => nomatch h ⟩
 -/
 
 #reduce @Set.powerset
+/-!
+## Summary of Set Theory and Logical Underpinnings
+
+| Set Theory  | Set Theory Definitions    | Predicate Logic                   |
+|-------------|---------------------------|-----------------------------------|
+| set α       | axioms of set theory      | predicate (α → Prop in Lean)      |
+| s ∩ t       | { a \| a ∈ s ∧ a ∈ t }     | λ a => s a ∧ t a                  |
+| s ∪ t       | { a \| a ∈ s ∨ a ∈ t }     | λ a => s a ∨ t a                  |
+| sᶜ          | { a \| a ∉ s }             | λ a => s a → False                |
+| s \ t       | { a \| a ∈ s ∧ a ∉ t }     | λ a => s a ∧ (t a → False)        |
+| s ⊆ t       | ∀ a, a ∈ s → a ∈ t  ...   | λ a => s a → t a ...              |
+| s ⊊ t       | ... ∧ ∃ w, w ∈ t ∧ w ∉ s  | ... ∧ ∃ w, (t w) ∧ (s w → False)  |
+| 𝒫 s         | { b : Set s \| b ⊆ univ }  | λ b => b ⊆ univ                   |
+-/
+/-!
+Symmetric - a = b then b = a
+Antisymetric = opposite
+
+Reflexive = for any object, the object is related to itself.
+Transitive - if a is related to b, and b is related to c (for some relation R), then a is related to c
+IF all three are fulfilled, then relation is equivalence relation
+Equivalence relation divides up objects into equivalence class where all elements in an equivalence class is related and nothing is related between equivalence classes
+
+Equivalence sets have emepty set intersection aka disjoint
+Equivalence sets are exhaustive = taking union results in universe
+-/
