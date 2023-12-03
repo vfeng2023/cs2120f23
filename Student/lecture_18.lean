@@ -134,6 +134,8 @@ def pythagorean_triple : Nat → Nat → Nat → Prop
 - Write a predicate for the property of being an even-length string
 - Write an expression for the set of all even length strings
 -/
+def ev_len_str': String → Prop := λ (s: String) => s.length%2=0
+def even_str_set': Set String := {s: String | ev_len_str s}
 
 /-!
 ## Quantifiers
@@ -169,3 +171,82 @@ match n with
 -/
 
 def sl5 : ∃ (s : String), s.length = 5 := ⟨"Hello", rfl ⟩
+
+
+/-!
+## Homework
+
+(1) Define a predicate, ev_len_str, expressing the property
+of a string of being of an even-length.
+-/
+
+-- Here
+
+def ev_len_str: String → Prop := λ (s: String) => s.length%2=0
+
+
+
+/-
+(2) Use #check to typecheck an expression for the set of all
+even length strings.
+-/
+
+-- Here
+#check ({s:String | ev_len_str s})
+
+
+/-
+(3) Define a predicate, str_eq_len, applicable to any
+String value, s, and to any Nat value, n, that is satisfied
+just in those cases where s.length equals n.
+-/
+
+
+
+-- Here
+def str_eq_len: String → Nat → Prop := λ (s: String) (n: Nat) => s.length = n
+
+
+
+/-
+(4) Define str_eq_lens : set String × Nat, to be the *set*
+of all ordered pairs, p = ⟨ s, n ⟩, such that n = s.length.
+-/
+
+-- Here
+def str_eq_lens: Set (String × Nat) := {p: String × Nat | str_eq_len p.1 p.2}
+
+
+/-
+(5) Use "example" in Lean to state and prove the proposition
+that ⟨ "I love Logic!", 13 ⟩ ∈ str_eq_lens.
+-/
+
+-- Here
+example : ⟨ "I love Logic!", 13 ⟩ ∈ str_eq_lens := rfl
+
+
+
+/-
+(6) Use "example" in Lean again to state and prove that
+⟨ "I love Logic!", 1 ⟩ ∉ str_eq_lens. That's shorthand
+notation for ¬("I love Logic!", 1⟩ ∈ str_eq_lens. And you
+know what that means.
+-/
+
+-- Here
+example: (⟨ "I love Logic!", 1⟩ ∉ str_eq_lens) :=
+λ (h: ⟨ "I love Logic!", 1⟩ ∈ str_eq_lens) => nomatch h
+/-!
+(7) Write a formal definition, in Lean, of *party*, as
+a *set* of objects of type *Person*. Make the Person type
+inhabited by giving it the single constructor, Person.jim.
+Hi, jim. Optionally use "structure" for this type, even if
+you don't know how to change the default constructor name,
+*mk*, to *jim*.
+-/
+
+inductive Person: Type
+| jim
+
+def party: Set Person := {p:Person | True}

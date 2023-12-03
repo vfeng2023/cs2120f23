@@ -1,4 +1,4 @@
-/--
+/-!
 TLDR:
 - A variable is an atomic proposition (Is it true or not that p?)
 - Variables can be given a valuation, which then can be wrapped in an expression
@@ -9,7 +9,7 @@ TLDR:
 - evaluation = combine Expr and Interp to obtain a boolean value
 
 -/
-/-
+/-!
 # Propositional Logic
 
 UNDER CONSTRUCTION (REALLY)
@@ -33,41 +33,41 @@ artificial (as opposed to natural) language that has a
 mathematical definition. The *syntax* of such a language
 specifies its set of well formed expressions (sometimes
 called well formed formulae, or *wffs*). The semantics
-provides a way to assign a *meaning* to each and every 
+provides a way to assign a *meaning* to each and every
 *wff*.
 
 The language of arithmetic is a formal language. Its
 *wffs* include the following:
 - *1 + 113*
-- *10 = 11* 
+- *10 = 11*
 - "x * y = 1"
 
 On the other hand, the following strings of symbols
-are not in the set of expressions defined by the syntax 
+are not in the set of expressions defined by the syntax
 of arithmetic.
-- *+ x +* 
+- *+ x +*
 - 1 >== 2
 - Hello
 
 The semantics of the language of arithmetic in turn
 give us a way to assign meanings to the well formed
-expressions. 
-- In the first example, we interpret *+* as arithmetic addition, and the overall arithmetic expression then *means* 113. 
-- In the second case, we interpret *=* as the equality relation, giving us a Boolean expression, the meaning of which in this case is *false*. 
-- The third expression means either true or false depending on the meanings of the arithmetic variables, *x* and *y*. 
+expressions.
+- In the first example, we interpret *+* as arithmetic addition, and the overall arithmetic expression then *means* 113.
+- In the second case, we interpret *=* as the equality relation, giving us a Boolean expression, the meaning of which in this case is *false*.
+- The third expression means either true or false depending on the meanings of the arithmetic variables, *x* and *y*.
 
 The third case is the most interesting because it
 shows that the semantics of arithmentic is not just
 a simple function from wwfs to meanings. We need an
 additional piece of information in this case, which
-we can call a *valuation*, or *interpretation*, of 
+we can call a *valuation*, or *interpretation*, of
 the variables. The meaning of *x * y = 1* is *true*
 under the valuation *{x = 2, y = 1/2}*, for example,
 but is false under the valuation *{x = 2, y = 1}.*
 
 Speaking informally, the semantics of arithmetic is
 thus a function that takes an expression and also a
-valuation of the variables that might appear in it 
+valuation of the variables that might appear in it
 and that returns a meaning.
 -/
 
@@ -83,26 +83,26 @@ other ordinary programming language.
 ### Atomic Propositions
 
 Propositional logic starts with the notion of an
-*atomic proposition*. An atomic proposition, *P*, 
-is a declarative statement that cannot be broken 
-into smaller propositions, and for which it makes 
-sense to ask *Is it true or not that P?*. Here are 
+*atomic proposition*. An atomic proposition, *P*,
+is a declarative statement that cannot be broken
+into smaller propositions, and for which it makes
+sense to ask *Is it true or not that P?*. Here are
 some examples of atomic propositions:
 - It's raining
 - The ground is wet
 - x * y = 1
 
 Because atomic propositions don't break up into smaller
-elements, and to make it easier to read and write 
+elements, and to make it easier to read and write
 expressions, it's the usual practice to use variables,
-sometimes called propositional letters, to stand for 
-longer propositions. For example, we could define the 
+sometimes called propositional letters, to stand for
+longer propositions. For example, we could define the
 following shorthands.
 - a = "it's raining"
 - b = "the ground is wet"
 - c = "x * y = 1"
 
-Here are some examples of propositions that are 
+Here are some examples of propositions that are
 not atomic. Be sure you see that they are made up
 of smaller propositions.
 - If it's raining then the ground is wet
@@ -123,7 +123,7 @@ None of these expressions pass the simple "Is it true" test for being a proposit
 ### Inductively Defined Syntax
 
 The syntax of propositional logic defines the set
-of well formed formula (*expressions*), inductively. 
+of well formed formula (*expressions*), inductively.
 In other words, we can build larger expressions from
 smaller ones. Here are the rules.
 
@@ -143,27 +143,27 @@ propositional logic:
 - ¬a           -- it's not raining
 - a ⇒ b        -- if it's raining then the ground is wet
 - a ∨ b         -- it's raining or the ground is wet
-- (a ∧ b) ∨ ¬a  -- (raining and wet) or (not raining) 
+- (a ∧ b) ∨ ¬a  -- (raining and wet) or (not raining)
 
-Note: Most informal (English/natural language) 
-definitions of propositional logic don't distinguish 
+Note: Most informal (English/natural language)
+definitions of propositional logic don't distinguish
 between atomic formula (represented by a propositional
 variables, such as *a* and *b*) and *expressions* that
-incorporate them ({a} and {b} in our notation). Rather, 
-it's common just to say that if *a* is an atomic 
-formula then it's also an expression. 
+incorporate them ({a} and {b} in our notation). Rather,
+it's common just to say that if *a* is an atomic
+formula then it's also an expression.
 
-We distinguish *a* as an atomic variable from from *{a},* 
+We distinguish *a* as an atomic variable from from *{a},*
 an (atomic) *expression*. This separation of variables
-from single-variable *expressions* will enable us to 
+from single-variable *expressions* will enable us to
 define valuations as functions, from *variables* only
-(not from all expressions) to (true/false) values. 
+(not from all expressions) to (true/false) values.
 
-We'll then define the meaning of any *expression* as 
+We'll then define the meaning of any *expression* as
 a separate function: that take *any* expression along
 with a valuation of any variables it might contain and
-that then returns its true or false meaning. Our formal 
-specification will clarify this distinction. 
+that then returns its true or false meaning. Our formal
+specification will clarify this distinction.
 
 ### Semantics
 
@@ -177,7 +177,7 @@ to answer a few questions:
 
 #### Atomic Propositional Variables
 
-First, we will assigning a true or false the meaning to 
+First, we will assigning a true or false the meaning to
 each atomic propositional variable in an expression by way
 of a valation. For example, if we only care about one such
 variable, say *a*, then there are two possible valuations:
@@ -188,16 +188,16 @@ If two variables, *a* and *b* might appear in expressions,
 then there are *four* interpretations.
 - {a ↦ true, b ↦ true}
 - {a ↦ true, b ↦ false}
-- {a ↦ false, b ↦ true} 
+- {a ↦ false, b ↦ true}
 - {a ↦ false, b ↦ false}
 
-You should recognize these lists as the input sides of 
+You should recognize these lists as the input sides of
 truth tables, with the output column determined by the
 expression to be evaluated. Here's an example. See first
 that the input (left) side lists variables, while the right
 side lists values of expressions. Second, note that that
 there are two interpretations for the one input variable,
-*a*. 
+*a*.
 
 |variable |expression |
 | a       |   ¬{a}    |
@@ -220,9 +220,9 @@ value of the output expression.
 Finally here's an example of a list of all interpretations,
 and the corresponding values, for an expression employing
 two propositional variables, *a* and *b*. The row give the
-four possible interpretations of the two variables, on the 
+four possible interpretations of the two variables, on the
 left, while the right column gives the values of the logical
-formula (expression) *under* each of these interpretations. 
+formula (expression) *under* each of these interpretations.
 
 | a      | b      |  {a} ∨ {b}  |
 |--------|--------|-------------|
@@ -233,13 +233,13 @@ formula (expression) *under* each of these interpretations.
 
 The main conclusions at this point are as follows. First,
 a valuation assigns Boolean truth values to propositional
-*variables*. Second, a truth table lists each possible 
-valuation for a given set of variables. Third, the output 
-column of a truth table specifies a logical *expression* 
+*variables*. Second, a truth table lists each possible
+valuation for a given set of variables. Third, the output
+column of a truth table specifies a logical *expression*
 and gives its truth value for each corresponding valuation.
 
 A final observation is that a single row of a truth table
-specifies a *function* from propositional variables to 
+specifies a *function* from propositional variables to
 to Boolean (truth) values. We could for example write the
 preceding truth table as follows:
 
@@ -250,11 +250,11 @@ preceding truth table as follows:
 |        i₁       |     true    |
 |        i₀       |     false   |
 
-Here the *i* (for *interpretation* values are functions 
-from variables to Bool. For example, *i₃(a) = true* and 
-*i₃(b) = true*, while *i₂(a) = true* but *i₂(b) = false.*  
+Here the *i* (for *interpretation* values are functions
+from variables to Bool. For example, *i₃(a) = true* and
+*i₃(b) = true*, while *i₂(a) = true* but *i₂(b) = false.*
 
-The values on the right (output) side of the truth table 
+The values on the right (output) side of the truth table
 are then obtained by first applying the correspond *i*
 functions to the *variables*, *a* and *b*, from which
 the atomic propositional expresssions *{a}* and *{b}*
@@ -262,15 +262,15 @@ are constructed to obtain the meanings of these basic
 expressions. Then the meaning of ∨ is applied to these
 two values to obtain the final result. Here, as you'd
 expect, the meaning of ∨ in propositional logic is the
-Boolean *or* function.   
+Boolean *or* function.
 
 You are now ready to use you acquired logic knowledge
 and skills formalizing concepts in Lean to define the
-formal language of propositional logic, both syntax 
+formal language of propositional logic, both syntax
 and semantics, within the logic of the Lean prover.
 Indeed, one of the main use cases for Lean is exactly
 to define *domain-specific languages* (DSLs). You're
-now going formally specify your first working DSL!    
+now going formally specify your first working DSL!
 -/
 
 /-!
@@ -302,22 +302,22 @@ def v₂' := var'.mk 2
 def v₃' := var'.mk 3
 
 /-!
-Here's a new Lean syntactic feature. 
-When you define a datatype with just 
+Here's a new Lean syntactic feature.
+When you define a datatype with just
 a single constructor, you can use the
 *structure* keyword. You then think of
-the arguments as *fields*. 
+the arguments as *fields*.
 -/
-structure var : Type := 
+structure var : Type :=
 (n: Nat) --(s: String)
 
 /-!
-The default constructor name for a 
-structure type is *mk*. Here we 
+The default constructor name for a
+structure type is *mk*. Here we
 construct four propositional logic
 variables and give them nice names.
 There's nothing special about using
-subscripts in the names. It's just 
+subscripts in the names. It's just
 a *mathy* thing to do, and makes it
 easier to write subsequent code/logic.
 -/
@@ -329,17 +329,17 @@ def v₃ := var.mk 3
 /-!
 Using the *structure* feature allows
 you to use the field names as *getter*
-functions, rather than having to write 
+functions, rather than having to write
 your own using pattern matching (as we
 did with the *fst* and *snd* functions
-for extracting the elements of a pair). 
+for extracting the elements of a pair).
 You can use either function application
-or dot notation. 
+or dot notation.
 -/
 
 #eval var.n v₂  -- application notation
---open var        -- not a good idea 
---#eval n v₂      -- but it works 
+--open var        -- not a good idea
+--#eval n v₂      -- but it works
 #eval v₂.n      -- dot notation
 
 /-!
@@ -354,7 +354,7 @@ inductive binary_op : Type
 | or
 
 /-!
-#### Expressions (Sentences) 
+#### Expressions (Sentences)
 -/
 
 inductive Expr : Type
@@ -387,14 +387,14 @@ notation should translate into ordinary Lean terms.
 See https://lean-lang.org/lean4/doc/notation.html
 for details.
 
-In what follows, we define standard logical 
+In what follows, we define standard logical
 notations for each of the standard connectives,
 or operators, of propositional logic. We start
 with one non-standard notation for *lifting*
 atomic propositional variables to *expressions*
-in the usual language of propositional logic. 
+in the usual language of propositional logic.
 
-After the first, each notation defines the 
+After the first, each notation defines the
 *fixity* of the corresponding operator, which
 is to say, where it's placed relative to its
 arguments; the associativity of the infix
@@ -402,15 +402,15 @@ operators (all of them are "r" for "right")
 associative in this case; and the operator
 precedence, or binding strength, corresponding
 to the same idea in arithmetic, which states
-that * applies before +, for example. 
+that * applies before +, for example.
 -/
 
 notation "{"v"}" => var_exp v
 prefix:max "¬" => un_exp unary_op.not --:max binding strength, aka highest precedence
-infixr:35 " ∧ " => bin_exp binary_op.and  
-infixr:30 " ∨ " => bin_exp binary_op.or 
+infixr:35 " ∧ " => bin_exp binary_op.and
+infixr:30 " ∨ " => bin_exp binary_op.or
 infixr:25 " ⇒ " =>  bin_exp binary_op.imp
-infixr:20 " ⇔ " => bin_exp binary_op.iff 
+infixr:20 " ⇔ " => bin_exp binary_op.iff
 --r means right associative
 
 --  Now we have a "concrete" syntax for our language!
@@ -444,7 +444,7 @@ variables. Just assign them a default value, such as
 *false*.
 -/
 
-def id'{α :Type} : α → α 
+def id'{α :Type} : α → α
 | a => a
 
 def a : var := v₀
@@ -466,12 +466,12 @@ so take two arguments. You can in fact define all
 kinds of such functions. And _if_then_else operator
 would take three Boolean arguments, and return a
 result that uses the first to select on of the
-following two values as the result. 
+following two values as the result.
 
-As above, we'll give *semantic* meanings to the 
+As above, we'll give *semantic* meanings to the
 *syntactic* connectives by defining functions from
 the former to the *Boolean functions* that express
-their desired meanings. 
+their desired meanings.
 
 -/
 def eval_un_op : unary_op → (Bool → Bool)
@@ -485,17 +485,17 @@ def eval_bin_op : binary_op → (Bool → Bool → Bool)
 #### Expressions
 
 And now for the coup de grace: We define a function that
-gives each and every expression in the language of 
+gives each and every expression in the language of
 propositional logic a Boolean meaning. The function is
 recursive: derive meanings for subexpressions, if any,
 and then combine them using the right Boolean operators.
 Atomic expressions are evaluated by interpreting the
 variables they contain under an interpretation function
 given to the expression evaluation function as an
-argument.  
+argument.
 -/
 
-def eval_expr : Expr → Interp → Bool 
+def eval_expr : Expr → Interp → Bool
 | var_exp v, i => i v
 | un_exp op e, i => (eval_un_op op) (eval_expr e i)
 | bin_exp op e1 e2, i => (eval_bin_op op) (eval_expr e1 i) (eval_expr e2 i)
@@ -519,10 +519,10 @@ def eval_expr : Expr → Interp → Bool
 /-!
 ## Conclusion
 
-You have implemented the abstract syntax and 
-standard concrete syntax for, and the semantics 
+You have implemented the abstract syntax and
+standard concrete syntax for, and the semantics
 of, the formal language of propositional logic.
 You have also automated the semantic evaluation
 of variables, operators, and arbitrarily complex
-expressions in propositional logic. That's cool! 
+expressions in propositional logic. That's cool!
 -/

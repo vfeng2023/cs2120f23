@@ -1,4 +1,19 @@
 import Mathlib.Data.Set.Basic
+/-!
+## The TL;DR
+Sets are defined by membership predicates: i.e. a set like {n: Nat| n%2=0} is a set
+To prove an element is part of a set you need to prove the underlying membership predicate, which is the same as proving a proposition in lean.
+Some operations on sets:
+Let S, T be sets:
+S ∩ T : {n | n ∈ S ∧ n ∈ T}
+S ∪ T: {el | el ∈ S ∨ el ∈ T}
+S \ T : {el | el ∈ S ∧ el ∉ T}
+S ⊆  T: {el | el ∈ S → el ∈ T}
+S ⊈ T: {el | (el ∈ S → el ∈ T) ∧ (∃ w, w∈T ∧ w ∉ S)}
+Power S: Let S be a Set of type α.
+Power S:= {b:Set α | b ⊆ S}
+-/
+def evens: Set ℕ := {n: Nat| n%2=0}
 
 /-!
 
@@ -58,7 +73,7 @@ def small := λ n : Nat => n = 0 ∨ n = 1 ∨ n = 2 ∨ n = 3 ∨ n = 4
 Self test: What *proposition* is specified by the expression,
 *small 1*? You should be able to answer this question without
 seeing the following answer.
-
+1 = 0 ∨ 1 = 1 ∨ 1=2 ∨ 1 = 3 ∨ 1=4
 Answer: Plug in a *1* for each *n* in the definition of *small*
 to get the answer. There are 5 places where the substitution has
 to be made. Lean can tell you the answer. Study it until you see
@@ -486,7 +501,7 @@ of an impossibility using nomatch) and we'll be done.
 -/
 
 example : 6 ∉ even_and_small_set :=
-fun h => nomatch h
+fun h: 6 ∈ even_and_small_set => nomatch h
 
 
 /-!
@@ -536,7 +551,7 @@ example : 3 ∈ even_or_small_set := Or.inr (Or.inr (Or.inr (Or.inr (Or.inl rfl)
 example : 6 ∈ even_or_small_set := Or.inl rfl
 example : 7 ∉ ev_set ∪ small_set := fun h: 7 ∈  ev_set ∪ small_set => nomatch h
 example : 7 ∈ ev_set := _   -- stuck
-example : 7 ∉ ev_set := λ h => nomatch h
+example : 7 ∉ ev_set := λ h: 7 ∈ ev_set => nomatch h
 
 /-!
 ### Set Complement
@@ -561,7 +576,7 @@ Exercises:
 You have to prove the corresponding negation: ¬5 ∈ small_set.
 -/
 
-example : 5 ∈ small_setᶜ := λ h: 5∈ small_set => nomatch h
+example : 5 ∈ small_setᶜ := λ h: 5 ∈ small_set => nomatch h
 
 
 /-!
@@ -599,7 +614,7 @@ example : 6 ∈ ev_set \ small_set := ⟨ rfl, λ h => nomatch h ⟩
 | s \ t       | { a \| a ∈ s ∧ a ∉ t }     | λ a => s a ∧ (t a → False)        |
 | s ⊆ t       | ∀ a, a ∈ s → a ∈ t  ...   | λ a => s a → t a ...              |
 | s ⊊ t       | ... ∧ ∃ w, w ∈ t ∧ w ∉ s  | ... ∧ ∃ w, (t w) ∧ (s w → False)  |
-| 𝒫 s         | { b : Set s \| b ⊆ univ }  | λ b => b ⊆ univ                   |
+| 𝒫 s         | { b : Set α | b ⊆ s }  | λ b => b ⊆ s                   |
 -/
 /-!
 Symmetric - a = b then b = a

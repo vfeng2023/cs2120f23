@@ -1,4 +1,13 @@
 /-!
+## TLDR
+-- quantifiers are a forall statement
+-- to prove a quantifier, you just create a function of that type
+- Universal generalizations are dependent function types
+- To prove a universal generalization (introduction rule for ∀ propositions), define such a dependently typed function
+- To use a proof of a universal generalization (elimination), apply such a function (proof()) to a specific value (universal specialization)
+
+-/
+/-!
 # Quantifiers: Universal Generalization (∀)
 
 Quantifiers are part of the syntax of predicate logic.

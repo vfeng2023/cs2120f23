@@ -1,4 +1,12 @@
 /-!
+TLDR:
+Product = And
+Sum = Or
+False = Empty
+True = unit
+A predicate is a proposition-generation function
+-/
+/-!
 # Predicate Logic and Proofs: Introduction
 
 You have now understood propositional logic,
