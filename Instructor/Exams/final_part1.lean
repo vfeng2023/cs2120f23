@@ -117,10 +117,12 @@ formal proof of it, and briefly explain in English how you
 proved it.
 -/
 
-example : ∃ n, square n 4 := Exists.intro 2 (_) -- fill in _
+example : ∃ n, square n 4 := Exists.intro 2 (sqr 2 4 rfl) -- fill in _
 
 /-
 English language translation of propostion here:
+Proposition: There exists some natural number, *n*, such that 4 = n^2.
+Proof -- n=2 satisfies this proposition, because 2^2 = 4 ⇒ 4 = 4 which is true by the reflexive property of equality.
 -/
 
 /-!
@@ -239,7 +241,7 @@ assert some equalities and see what we can prove.
 
 example : 1 = 1 := Eq.refl 1
 example : 1 = 1 := rfl          -- Lean infers α = Nat *and* a = 1
-example : 2 = 1 + 1 := rfl      -- Lean reduces 1 + 1 to 2, rfl works
+example : 2 = 1 + 1 := rfl     -- Lean reduces 1 + 1 to 2, rfl works
 example : "Hi" = "Hi" := Eq.refl "Hi"
 example : true = or true false := Eq.refl true
 
@@ -451,10 +453,10 @@ write separate tactic applications indented on separate lines.
 -/
 
 theorem eq_rel_trans {α : Type} {a b c : α} :
-_               -- fill with proposition: equality is transitive
-| _, _ => by
-  _             -- fill in your proof of it here
-
+(a=b) → (b=c) → (a=c)               -- fill with proposition: equality is transitive
+| aeqb, beqc => by -- define goal to be a=c
+          rw [aeqb] --rewrite goal into b=c by substitution
+          rw [beqc] --rewrite into c = c by substitution, true by reflexive
 /-!
 ## Exam Question #3
 
@@ -468,3 +470,8 @@ is not.
 -/
 
 -- Your answer here
+inductive successor: Nat → Nat → Prop
+| suc (a sa: Nat) : sa= Nat.succ a → successor a sa
+
+example : successor 2 3 := successor.suc 2 3 rfl --(1) Proof that (2,3) in the successor inductive family
+example : ¬ (successor 2 4) := λ h: successor 2 4 => nomatch h --(1) Proof that (2,4) is not in the successor inductive family through construction of functions returning False
