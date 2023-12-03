@@ -142,7 +142,7 @@ namespace cs2120f23
 
 /-!
 With values of data types, we care a lot about particular
-values. There's a huge difference between *tre* and *false*
+values. There's a huge difference between *true* and *false*
 as values of the Boolean type,
 
 Indeed, one of the fundamental rules of inductive *data*
@@ -296,9 +296,18 @@ axiom em: ∀ (P: Prop), P ∨ ¬ P
 
 example : X ∨ ¬ X := em X
 
-example (A B: Prop) : ¬ (A ∧ B) → (¬ A ∨ ¬ B)
-| nab => Or.inl _
+
 
 example (A B: Prop) :  (¬ A ∨ ¬ B) → ¬ (A ∧ B)
 | Or.inl noa => (λ ⟨a, _⟩ => noa a)
 | Or.inr nb =>  (λ ⟨_, b⟩ => nb b)
+
+example (A B: Prop) : ¬ (A ∧ B) → (¬ A ∨ ¬ B)
+| nab =>
+  let aornota:= em A
+  let bornotb := em B
+  match aornota with
+  | Or.inl a => match bornotb with
+    | Or.inl b => Or.inl (False.elim (nab ⟨ a,b⟩ ))
+    | Or.inr nb => Or.inr nb
+  | Or.inr na => Or.inl na

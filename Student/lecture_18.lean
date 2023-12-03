@@ -135,7 +135,7 @@ def pythagorean_triple : Nat → Nat → Nat → Prop
 - Write an expression for the set of all even length strings
 -/
 def ev_len_str': String → Prop := λ (s: String) => s.length%2=0
-def even_str_set': Set String := {s: String | ev_len_str s}
+def even_str_set': Set String := {s: String | ev_len_str' s}
 
 /-!
 ## Quantifiers

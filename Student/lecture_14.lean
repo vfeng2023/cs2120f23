@@ -4,7 +4,7 @@
 namespace TLDR
 
 --functions to know
-#check @List.foldr --combines successive values of List β using a the TLDR
+#check @List.foldr --combines successive values of List β using a the given function
 #check @List.map -- maps function to each value of list
 #check @List.filter --returns a list of values that fufill a certain criteria
 

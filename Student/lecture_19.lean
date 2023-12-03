@@ -1,7 +1,7 @@
 /-!
 ## TLDR
 -- quantifiers are a forall statement
--- to prove a quantifier, you just create a function of that type
+-- to prove a quantifier, you just create a function of that type that returns a proof for each prop
 - Universal generalizations are dependent function types
 - To prove a universal generalization (introduction rule for ∀ propositions), define such a dependently typed function
 - To use a proof of a universal generalization (elimination), apply such a function (proof()) to a specific value (universal specialization)
@@ -218,6 +218,7 @@ is a *total* function, from *any* value, *x*, to a proof
 of *P x*, is what makes the function a proof that *all*
 argument values satisfy the predicate, *P*.
 -/
+
 
 /-!
 ## A Little Bit of Lean: Declaring variables

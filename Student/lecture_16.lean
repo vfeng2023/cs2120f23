@@ -368,11 +368,7 @@ def x := (1,2)
 
 
 def from_ab_proof_a_proof {α β : Prop} : α ∧ β → α
-
-
-
-
-
+:= λ ab => ab.left
 section foo
 
 variable
@@ -420,7 +416,7 @@ def and_elim_left : α ∧ β → α
 def and_elim_right : α ∧ β → β
 | ⟨ _, b ⟩  => b
 
-theorem and_comm : (α ∧ β → β ∧ α) ∧ (β ∧ α → α ∧ β) :=
+theorem and_comm' : (α ∧ β → β ∧ α) ∧ (β ∧ α → α ∧ β) :=
 And.intro
   (λ ab => And.intro ab.right ab.left)
   (λ ba => And.intro ba.right ba.left)
@@ -470,6 +466,11 @@ a proposition encoded as a type (assuming α, β, and
 which is to say that
 if you have a proof of A ∧ B is equivalent to B ∧ A.
 -/
+
+def or_comm (P Q: Prop): (P ∨ Q) → (Q ∨ P):=
+λ porq => match porq with
+  | Or.inl p => Or.inr p
+  | Or.inr q => Or.inl q
 
 end bar
 
@@ -524,10 +525,18 @@ the corresponding function type.
 As an exercise, go ahead and derive a function implementation again.
 -/
 
-def bjc2bjbc' { A B C : Type } : B × (J ⊕ C) → (B × J) ⊕ (B × C)
-| Prod.mk b (Sum.inl j) => Sum.inl (b, j) -- destructure prod and sum
+def bjc2bjbc'{ A B C : Type }: B × (J ⊕ C) → (B × J) ⊕ (B × C)
+| (b, Sum.inl j)=> Sum.inl (b, j) -- destructure prod and sum
 | (b, (Sum.inr c)) => Sum.inr (b, c)      -- use ordered pair notation
+-- fun bandjc => match bandjc with
+-- | (b,Sum.inl j) => Sum.inl (b,j)
+-- | (b, Sum.inr c) => Sum.inr (b,c)
 
+-- def getfirst {α :Type }: α × α → α
+-- | (Prod.mk a b) => a
+
+
+#check Prod.mk 5 6
 /-!
 That's it. All the essential ideas are here. We represent
 propositions as types, here a function type, and we represent
@@ -609,9 +618,6 @@ that the proposition also refers to. But if kitten refers
 to a grumpy kitten, with the same puppy, the proposition
 will not be true *in that alternative world*, under this
 alternative interpretation, or denotation, of the variables.
-
-
-
 and even polynomial (as we saw) in Z3. It generally will
 not be able to solve constraints involving exponentials.
 
